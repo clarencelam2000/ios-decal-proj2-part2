@@ -46,6 +46,7 @@ class CurrentUser {
                     }
                     completion(postArray)
                 }
+                //completion(postArray)
             }
         })
         /*let classRefHandle = dbRef.child("Users").observe(.value, with: {

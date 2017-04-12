@@ -42,7 +42,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         guard let emailText = emailField.text else { return }
         guard let passwordText = passwordField.text else { return }
         
-        FIRAuth.auth()?.signIn(withEmail: emailText, password: passwordText, completion: { (user, error) in if let error = error {
+        FIRAuth.auth()?.signIn(withEmail: emailText, password: passwordText, completion: { (user, error) in if error != nil {
                 let alert = UIAlertController(title: "Error", message: "Sign in failed, try again", preferredStyle: UIAlertControllerStyle.alert)
             
                 // add the actions (buttons)

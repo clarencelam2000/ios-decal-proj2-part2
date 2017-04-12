@@ -136,6 +136,7 @@ func getPosts(user: CurrentUser, completion: @escaping ([Post]?) -> Void) {
         } else {
             completion(nil)
         }
+        //completion(postArray)
     })
 
     
