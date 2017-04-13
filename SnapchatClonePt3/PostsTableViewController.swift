@@ -76,14 +76,16 @@ class PostsTableViewController: UIViewController, UITableViewDelegate, UITableVi
         // YOUR CODE HERE
         getPosts(user: currentUser, completion: { postsArray in
             
-            print("pls print")
+            print(postsArray)
             clearThreads()
             for eachPost in postsArray! {
                 print("loadposts!")
                 addPostToThread(post: eachPost)
                 let dataHandler = getDataFromPath(path: eachPost.postImagePath, completion: { (data) in
-                    let image = UIImage(data: data!) //Not safe unwrapping?
-                    self.loadedImagesById[eachPost.postId] = image
+                    if let data = data {
+                        let image = UIImage(data: data) //Not safe unwrapping?
+                        self.loadedImagesById[eachPost.postId] = image
+                    }
                 })
             }
             self.postTableView.reloadData()

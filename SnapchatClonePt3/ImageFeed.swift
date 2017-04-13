@@ -87,6 +87,8 @@ func store(data: Data, toPath path: String) {
         (metadata, error) in
         if let error = error {
             print(String(describing: error))
+
+
         }
     }
 }
@@ -112,13 +114,16 @@ func store(data: Data, toPath path: String) {
 func getPosts(user: CurrentUser, completion: @escaping ([Post]?) -> Void) {
     let dbRef = FIRDatabase.database().reference()
     var postArray: [Post] = []
-    
+    print("Running getPosts")
     // YOUR CODE HERE
     let refHandle = dbRef.child(firPostsNode).observeSingleEvent(of: .value, with: {
         (snapshot) in
         if snapshot.exists() {
+            print("Snapshot exists!")
             if let dictWithKeyID = snapshot.value as? [String : AnyObject] {
+                print("snapshot val saved!")
                 let handler = user.getReadPostIDs(completion: {(postArrayUser) in
+                    print("For loop in getPosts!")
                     for (key, postContents) in dictWithKeyID {
                         let username = postContents[firUsernameNode] as! String
                         let imagePath = postContents[firImagePathNode] as! String
@@ -136,7 +141,7 @@ func getPosts(user: CurrentUser, completion: @escaping ([Post]?) -> Void) {
         } else {
             completion(nil)
         }
-        //completion(postArray)
+        completion(postArray)
     })
 
     

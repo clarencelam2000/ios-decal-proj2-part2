@@ -37,17 +37,24 @@ class CurrentUser {
     func getReadPostIDs(completion: @escaping ([String]) -> Void) {
         var postArray: [String] = []
         // TODO
+        print("Running getReadPostIDs")
         let refHandle = dbRef.child(firUsersNode).child(id).child(firReadPostsNode).observeSingleEvent(of: .value, with: {
             (snapshot) in
+            print("single event in getReadPostIDs observed")
+            print(snapshot)
             if snapshot.exists() {
+                print("postID snapshot exists")
                 if let keyDict = snapshot.value as? [String : AnyObject] {
                     for (key, value) in keyDict {
                         postArray.append(value as! String)
                     }
-                    completion(postArray)
+                    print("getReadPostIDs completed")
+                    //completion(postArray)
                 }
                 //completion(postArray)
             }
+            print("outside completion")
+            completion(postArray)
         })
         /*let classRefHandle = dbRef.child("Users").observe(.value, with: {
             (snapshot) in
